@@ -552,61 +552,7 @@
             background: rgba(255, 107, 107, 0.1);
             transform: rotate(90deg);
         }
-        .info-modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, .4);
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 500px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: 700;
-            cursor: pointer;
-            user-select: none;
-        }
-        .close:hover, .close:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .info-section {
-            margin-bottom: 15px;
-        }
-        .info-section h3 {
-            margin-top: 0;
-            color: #333;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 5px;
-        }
-        .info-item {
-            margin-bottom: 8px;
-        }
-        .info-key {
-            font-weight: 700;
-            color: #28a745;
-        }
-        .info-footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 12px;
-            color: #777;
-        }
+      
         #mathjax-loading {
             display: none;
             position: fixed;
@@ -617,30 +563,7 @@
             font-style: italic;
             z-index: 1000;
         }
-        footer {
-            width: 100%;
-            background: rgba(0, 0, 0, .8);
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            font-size: 14px;
-            z-index: 5;
-        }
-        .info-btn {
-            background: transparent;
-            border: none;
-            color: #ff9;
-            cursor: pointer;
-            font-weight: 700;
-            padding: 0 5px;
-            text-decoration: underline;
-        }
-        .info-btn:hover {
-            color: #fff;
-        }
+        
         #remainingQty {
             cursor: pointer;
             transition: all 0.2s ease;
@@ -978,21 +901,21 @@
                     <td class="acb-td">Std. Qty (A)<br>kg</td>
                     <td class="acb-td">
                         <label for="lot1-a" class="hidden">Lot 1 Standard Quantity A</label>
-                        <input type="number" step="0.001" id="lot1-a" value="417.000" class="acb-input acb-prefilled" readonly placeholder="Std Qty A">
+                        <input type="number" step="0.001" id="lot1-a" value="0.000" class="acb-input acb-prefilled" readonly placeholder="Std Qty A">
                     </td>
                     <td class="acb-td">
                         <label for="lot2-a" class="hidden">Lot 2 Standard Quantity A</label>
-                        <input type="number" step="0.001" id="lot2-a" value="417.000" class="acb-input acb-prefilled" readonly placeholder="Std Qty A">
+                        <input type="number" step="0.001" id="lot2-a" value="0.000" class="acb-input acb-prefilled" readonly placeholder="Std Qty A">
                     </td>
                     <td class="acb-td">
                         <label for="lot3-a" class="hidden">Lot 3 Standard Quantity A</label>
-                        <input type="number" step="0.001" id="lot3-a" value="417.000" class="acb-input acb-prefilled" readonly placeholder="Std Qty A">
+                        <input type="number" step="0.001" id="lot3-a" value="0.000" class="acb-input acb-prefilled" readonly placeholder="Std Qty A">
                     </td>
                     <td class="acb-td">
                         <label for="lot4-a" class="hidden">Lot 4 Standard Quantity A</label>
-                        <input type="number" step="0.001" id="lot4-a" value="417.000" class="acb-input acb-prefilled" readonly placeholder="Std Qty A">
+                        <input type="number" step="0.001" id="lot4-a" value="0.000" class="acb-input acb-prefilled" readonly placeholder="Std Qty A">
                     </td>
-                    <td class="acb-td"><span id="total-a" class="acb-span acb-prefilled">1668.000</span></td>
+                    <td class="acb-td"><span id="total-a" class="acb-span acb-prefilled">0.000</span></td>
                 </tr>
                 <tr class="acb-highlight-row">
                     <td class="acb-td">Issued Qty (B)<br>kg</td>
@@ -1018,21 +941,21 @@
                     <td class="acb-td">Std. Qty (C)<br>kg</td>
                     <td class="acb-td">
                         <label for="lot1-c" class="hidden">Lot 1 Standard Quantity C</label>
-                        <input type="number" step="0.001" id="lot1-c" value="84.375" class="acb-input acb-prefilled" readonly placeholder="Std Qty C">
+                        <input type="number" step="0.001" id="lot1-c" value="0.000" class="acb-input acb-prefilled" readonly placeholder="Std Qty C">
                     </td>
                     <td class="acb-td">
                         <label for="lot2-c" class="hidden">Lot 2 Standard Quantity C</label>
-                        <input type="number" step="0.001" id="lot2-c" value="84.375" class="acb-input acb-prefilled" readonly placeholder="Std Qty C">
+                        <input type="number" step="0.001" id="lot2-c" value="0.000" class="acb-input acb-prefilled" readonly placeholder="Std Qty C">
                     </td>
                     <td class="acb-td">
                         <label for="lot3-c" class="hidden">Lot 3 Standard Quantity C</label>
-                        <input type="number" step="0.001" id="lot3-c" value="84.375" class="acb-input acb-prefilled" readonly placeholder="Std Qty C">
+                        <input type="number" step="0.001" id="lot3-c" value="0.000" class="acb-input acb-prefilled" readonly placeholder="Std Qty C">
                     </td>
                     <td class="acb-td">
                         <label for="lot4-c" class="hidden">Lot 4 Standard Quantity C</label>
-                        <input type="number" step="0.001" id="lot4-c" value="84.375" class="acb-input acb-prefilled" readonly placeholder="Std Qty C">
+                        <input type="number" step="0.001" id="lot4-c" value="0.000" class="acb-input acb-prefilled" readonly placeholder="Std Qty C">
                     </td>
-                    <td class="acb-td"><span id="total-c" class="acb-span acb-prefilled">337.500</span></td>
+                    <td class="acb-td"><span id="total-c" class="acb-span acb-prefilled">0.000</span></td>
                 </tr>
                 <tr class="acb-highlight-row">
                     <td class="acb-td">(A+C)-(B)<br>kg</td>
@@ -1051,46 +974,15 @@
         <button type="button" onclick="printWithCheck()" class="print-btn" aria-label="Print calculations">Print Calculations</button>
         <div id="stepsContainer"></div>
     </div>
-    <div id="infoModal" class="info-modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()" aria-label="Close information modal">×</span>
-            <div id="formulaInfo" class="info-section">
-                <h3>Formula Calculator-Shortcuts</h3>
-                <div class="info-item"><span class="info-key">F1/F2/F3:</span>Calculate respective formulas</div>
-              
-                <div class="info-item"><span class="info-key">❌:</span>Remove individual calculations</div>
-
-                <div class="info-item"><span class="info-key">F5:</span>Refresh page</div>
-
- <div class="info-item"><span class="info-key">F8:</span>Print calculations</div>
-
-                <div class="info-item"><span class="info-key">Enter:</span>Navigate between fields</div>
-                <div class="info-item"><span class="info-key">Click Remaining Qty:</span>Copy to Q field</div>
-                  <div class="info-item"><span class="info-key">Lot Select:</span>Assign dispensed qty to selected lot</div>
-            </div>
-            <div id="acbInfo" class="info-section" style="display:none">
-                <h3>(A+C)-B Calculator Features</h3>
-                <div class="info-item"><span class="info-key">Edit Button:</span>Toggle editing of standard quantities</div>
-                <div class="info-item"><span class="info-key">Enter:</span>Navigate between editable fields</div>
-                <div class="info-item"><span class="info-key">Auto-update:</span>Changes automatically update totals</div>
-                <div class="info-item"><span class="info-key">Reset Button (↻):</span>Reset all values in this calculator</div>
-              
-            </div>
-            <div class="info-footer">This tool is continuously improving to serve you better.</div>
-        </div>
-    </div>
-    <footer>
-        This tool is continuously improving to serve you better. Results are reliable but always double-check.
-        <button type="button" class="info-btn" onclick="showInfo()" aria-label="Show help and shortcuts">ℹ️ Click for Help & Shortcuts</button>
-    </footer>
+ 
     <script>
         // Named constants
         const CONSTANTS = {
             MAX_CALCULATIONS: 15,
-            ACB_DEFAULT_A: 417.000,
-            ACB_DEFAULT_C: 84.375,
-            ACB_TOTAL_A: 1668.000,
-            ACB_TOTAL_C: 337.500,
+            ACB_DEFAULT_A: 0.000,
+            ACB_DEFAULT_C: 0.000,
+            ACB_TOTAL_A: 0.000,
+            ACB_TOTAL_C: 0.000,
             Q_MAX: 9999999,
             W_MAX: 99.99,
             A_MAX: 100.00,
@@ -1884,12 +1776,7 @@ function closeModal() {
             domCache.calculationSteps.classList.add("hidden");
             domCache.QInput.focus();
 
-  // Show help popup on first load
-    setTimeout(() => {
-        showInfo();
-        setTimeout(closeModal, 4000); // Auto-close after 4 seconds
-    }, 500); // Small delay to let page load first
-    
+  
     
             // Input listeners
             [domCache.QInput, domCache.waterInput, domCache.assayInput].forEach(input => {
@@ -1939,10 +1826,7 @@ function closeModal() {
                 }
             });
 
-            // Modal listeners
-            window.addEventListener('click', e => {
-                if (e.target === document.getElementById('infoModal')) closeModal();
-            });
+            
 
             // Keyboard shortcuts
             document.addEventListener("keydown", e => {
@@ -2034,78 +1918,6 @@ domCache.stdQtyInput.addEventListener("change", () => {
     </div>
 </div>
 
-<style>
-/* Enhancements for modal */
-.info-modal {
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 10000;
-}
-.modal-content {
-    background: #fff;
-    max-height: 90vh;
-    overflow-y: auto;
-    width: 90%;
-    max-width: 500px;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
-    position: relative;
-}
-.verify-label {
-    font-weight: bold;
-    color: #000;
-    display: inline-block;
-    width: 140px;
-    text-align: right;
-    margin-right: 10px;
-}
-.verify-value {
-    font-weight: bold;
-    background-color: #d4edda;
-    color: #155724;
-    padding: 3px 6px;
-    border-radius: 5px;
-}
-.verify-row {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-bottom: 10px;
-}
-.cancel-btn {
-    background-color: #ff4444;
-    color: white;
-    border: none;
-    padding:8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-.cancel-btn:hover {
-    background-color: #cc0000;
-}
-.confirm-btn {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-.confirm-btn:hover {
-    background-color: #218838;
-}
-</style>
 
 <script>
 // Overwrite verifyCalculation with improved modal
