@@ -87,7 +87,6 @@
 
    
     <style>
-        
         /* Override MathJax .CtxtMenu_Info to fix border-radius and box-shadow order */
         .CtxtMenu_Info {
             -webkit-border-radius: 15px;
@@ -134,62 +133,212 @@
         .menu-item.active {
             background: #28a745;
         }
-        .menu-qty-tracker {
+        
+        /* Fullscreen quantity tracker */
+        .menu-qty-tracker.fullscreen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            flex-direction: column;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.95);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .menu-qty-tracker.menu-position {
             display: flex;
             align-items: center;
             gap: 15px;
             margin-left: auto;
+            background: transparent;
+            flex-direction: row;
+            padding: 0;
+            position: static;
+            width: auto;
+            height: auto;
         }
-        .menu-qty-tracker.hidden {
-            display: none;
+
+        .menu-qty-tracker.menu-position .menu-qty-group {
+            margin: 0;
         }
-        .menu-qty-group {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+
+        .menu-qty-tracker.menu-position .menu-qty-label {
+            color: #ccc;
+            font-size: 12px;
+            margin-bottom: 3px;
+            font-weight: normal;
+            text-transform: none;
+            letter-spacing: normal;
         }
-        .menu-qty-input, .lot-select {
+
+        .menu-qty-tracker.menu-position .menu-qty-value {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 5px 10px;
+            background: transparent;
+            border-radius: 3px;
+            min-width: auto;
+            border: none;
+        }
+
+        .menu-qty-tracker.menu-position .menu-qty-input,
+        .menu-qty-tracker.menu-position .lot-select {
             width: 100px;
             padding: 5px;
             border: 1px solid #ddd;
-            border-radius: 3px;
+            background: #fff;
+            color: #000;
+            font-size: 14px;
+        }
+
+        .menu-qty-tracker.hidden {
+            display: none !important;
+        }
+
+        /* Fullscreen specific styles */
+        .menu-qty-tracker.fullscreen .menu-qty-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+            min-width: 300px;
+        }
+
+        .menu-qty-tracker.fullscreen .menu-qty-input,
+        .menu-qty-tracker.fullscreen .lot-select {
+            width: 100%;
+            max-width: 250px;
+            padding: 15px;
+            border: 2px solid #28a745;
+            border-radius: 8px;
             text-align: center;
-            background: #fff;
-            color: #000;
-            font-size: 14px;
-        }
-        .menu-qty-input:focus, .lot-select:focus {
-            outline: 0;
-            border-color: #28a745;
-        }
-        .lot-select option {
-            background: #fff;
-            color: #000;
-        }
-        .menu-qty-label {
-            font-size: 12px;
-            color: #ccc;
-            margin-bottom: 3px;
-        }
-        .menu-qty-value {
-            font-size: 14px;
-            font-weight: 600;
+            background: rgba(255, 255, 255, 0.1);
             color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
-        .menu-qty-warning {
+
+        .menu-qty-tracker.fullscreen .menu-qty-input:focus,
+        .menu-qty-tracker.fullscreen .lot-select:focus {
+            outline: 0;
+            border-color: #00f2fe;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
+        .menu-qty-tracker.fullscreen .menu-qty-label {
+            font-size: 20px;
+            color: #fff;
+            margin-bottom: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .menu-qty-tracker.fullscreen .menu-qty-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #4facfe;
+            padding: 15px 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            min-width: 200px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .menu-qty-tracker.fullscreen .menu-qty-value:hover {
+            color: #00f2fe;
+            border-color: #00f2fe;
+            transform: translateY(-2px);
+        }
+
+        .menu-qty-tracker.fullscreen .menu-qty-warning {
             color: #ff6b6b;
+            font-size: 16px;
+            margin-top: 10px;
+            font-weight: 600;
+            text-align: center;
+            padding: 10px 20px;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 5px;
+            border: 1px solid #ff6b6b;
+        }
+
+        .menu-qty-tracker.menu-position .menu-qty-warning {
             font-size: 11px;
             margin-top: 3px;
-            display: none;
-        }
-        .menu-qty-warning.active {
-            display: block;
-            background: #ff6b6b;
-            color: #fff;
             padding: 3px 8px;
-            border-radius: 3px;
-            font-weight: 600;
         }
+
+        .menu-qty-warning.active {
+            display: block !important;
+        }
+
+        /* Welcome message */
+        .welcome-message {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 40px;
+            font-size: 24px;
+            font-weight: 300;
+        }
+
+        .welcome-message h2 {
+            margin: 0;
+            color: #4facfe;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .welcome-message p {
+            margin: 10px 0;
+            color: #ccc;
+            font-size: 16px;
+        }
+
+        /* Close button */
+        .close-fullscreen-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .close-fullscreen-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
+        }
+
+        /* Instructions */
+        .fullscreen-instructions {
+            color: #aaa;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
         body {
             font-family: Poppins, sans-serif;
             background: linear-gradient(to right, #4facfe, #00f2fe);
@@ -553,7 +702,6 @@
             transform: rotate(90deg);
         }
        
-        
         #mathjax-loading {
             display: none;
             position: fixed;
@@ -616,11 +764,48 @@
                 gap: 10px;
                 padding: 10px;
             }
-            .menu-qty-tracker {
+            .menu-qty-tracker.menu-position {
                 order: 3;
                 width: 100%;
                 justify-content: center;
                 margin-left: 0;
+            }
+            
+            /* Mobile styles for fullscreen tracker */
+            .menu-qty-tracker.fullscreen {
+                gap: 20px;
+                padding: 10px;
+            }
+            
+            .menu-qty-tracker.fullscreen .menu-qty-group {
+                min-width: 250px;
+                margin: 15px 0;
+            }
+            
+            .menu-qty-tracker.fullscreen .menu-qty-input,
+            .menu-qty-tracker.fullscreen .lot-select {
+                max-width: 200px;
+                padding: 12px;
+                font-size: 16px;
+            }
+            
+            .menu-qty-tracker.fullscreen .menu-qty-label {
+                font-size: 16px;
+            }
+            
+            .menu-qty-tracker.fullscreen .menu-qty-value {
+                font-size: 24px;
+                min-width: 150px;
+                padding: 12px 20px;
+            }
+            
+            .welcome-message {
+                font-size: 18px;
+                margin-bottom: 20px;
+            }
+            
+            .welcome-message h2 {
+                font-size: 24px;
             }
         }
         @media (max-width: 480px) {
@@ -692,405 +877,164 @@
                 padding: 6px 10px;
                 font-size: 14px;
             }
-            .menu-qty-input, .lot-select {
+            .menu-qty-tracker.menu-position .menu-qty-input,
+            .menu-qty-tracker.menu-position .lot-select {
                 width: 80px;
+            }
+            
+            /* Mobile styles for fullscreen tracker */
+            .menu-qty-tracker.fullscreen {
+                gap: 15px;
+                padding: 5px;
+            }
+            
+            .menu-qty-tracker.fullscreen .menu-qty-group {
+                min-width: 200px;
+                margin: 10px 0;
+            }
+            
+            .menu-qty-tracker.fullscreen .menu-qty-input,
+            .menu-qty-tracker.fullscreen .lot-select {
+                max-width: 180px;
+                padding: 10px;
+                font-size: 14px;
+            }
+            
+            .menu-qty-tracker.fullscreen .menu-qty-label {
+                font-size: 14px;
+            }
+            
+            .menu-qty-tracker.fullscreen .menu-qty-value {
+                font-size: 20px;
+                min-width: 120px;
+                padding: 10px 15px;
+            }
+            
+            .welcome-message {
+                font-size: 14px;
+                margin-bottom: 15px;
+            }
+            
+            .welcome-message h2 {
+                font-size: 20px;
             }
         }
 
+        /* GLOBAL RESET FOR BOX-SIZING */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
 
-      /* GLOBAL RESET FOR BOX-SIZING */
-*, *::before, *::after {
-    box-sizing: border-box;
-}
-/* Fullscreen quantity tracker */
-.menu-qty-tracker.fullscreen {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-    flex-direction: column;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.9);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1000;
-    transition: all 0.5s ease-in-out;
-}
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 8mm;
+            }
 
-.menu-qty-tracker.menu-position {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-left: auto;
-    background: transparent;
-    flex-direction: row;
-    padding: 0;
-    position: static;
-    width: auto;
-    height: auto;
-}
+            body {
+                background: transparent;
+                padding: 0;
+                margin: 0;
+            }
 
-.menu-qty-tracker.menu-position .menu-qty-group {
-    margin: 0;
-}
+            /* Hide UI elements not needed for printing */
+            #mathjax-loading, .acb-notice, .acb-toggle-btn, .calculator-container, .delete-button, .info-btn, 
+            .menu-bar, .print-btn, .progress-container, footer, .reset-acb-btn, .menu-qty-tracker {
+                display: none !important;
+            }
 
-.menu-qty-tracker.menu-position .menu-qty-label {
-    color: #ccc;
-    font-size: 12px;
-    margin-bottom: 3px;
-    font-weight: normal;
-    text-transform: none;
-    letter-spacing: normal;
-}
+            .calculation-steps {
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                display: block !important;
+                width: 100%;
+                max-width: none;
+                margin: 0;
+                padding: 0;
+                background: transparent;
+            }
 
-.menu-qty-tracker.menu-position .menu-qty-value {
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 5px 10px;
-    background: transparent;
-    border-radius: 3px;
-    min-width: auto;
-    border: none;
-}
+            .calculation-entry {
+                width: 280mm !important;
+                height: 190mm !important;
+                margin: 0 auto;
+                padding: 0;
+                border: 1px solid #000;
+                font-size: 12pt;
+                position: relative;
+                background: #fff;
+                overflow: hidden;
+                page-break-after: always;
+            }
 
-.menu-qty-tracker.menu-position .menu-qty-input,
-.menu-qty-tracker.menu-position .lot-select {
-    width: 100px;
-    padding: 5px;
-    border: 1px solid #ddd;
-    background: #fff;
-    color: #000;
-    font-size: 14px;
-}
+            .calculation-entry::before {
+                content: "Assay Based Calculation";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                background: #f0f0f0;
+                padding: 5mm;
+                text-align: center;
+                font-size: 16pt;
+                font-weight: 600;
+                border-bottom: 1px solid #000;
+            }
 
-.menu-qty-tracker.hidden {
-    display: none !important;
-}
+            .calculation-entry::after {
+                content: "Remarks: ______________________________________________________________";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: #f0f0f0;
+                padding: 5mm;
+                font-size: 14pt;
+                border-top: 1px solid #000;
+            }
 
-/* Fullscreen specific styles */
-.menu-qty-tracker.fullscreen .menu-qty-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px 0;
-    min-width: 300px;
-}
+            .reference-values {
+                position: absolute;
+                top: 20mm;
+                right: 10mm;
+                font-size: 10pt;
+                color: #000;
+                background: #fff;
+                padding: 2px 5px;
+                z-index: 10;
+            }
 
-.menu-qty-tracker.fullscreen .menu-qty-input,
-.menu-qty-tracker.fullscreen .lot-select {
-    width: 100%;
-    max-width: 250px;
-    padding: 15px;
-    border: 2px solid #28a745;
-    border-radius: 8px;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    font-size: 18px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
+            .calculation-entry .lot-label::before {
+                content: "LOT: ";
+                position: absolute;
+                top: 24mm;
+                left: 15mm;
+                font-size: 14pt;
+            }
 
-.menu-qty-tracker.fullscreen .menu-qty-input:focus,
-.menu-qty-tracker.fullscreen .lot-select:focus {
-    outline: 0;
-    border-color: #00f2fe;
-    box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
-    background: rgba(255, 255, 255, 0.15);
-    transform: scale(1.05);
-}
+            .calculation-content {
+                margin-top: 30mm;
+                margin-bottom: 30mm;
+                padding: 0 15mm;
+                font-size: 14pt;
+                overflow: hidden;
+                text-align: left;
+            }
 
-.menu-qty-tracker.fullscreen .menu-qty-label {
-    font-size: 20px;
-    color: #fff;
-    margin-bottom: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
+            .page-number {
+                position: absolute;
+                bottom: 5mm;
+                right: 5mm;
+                font-size: 8pt;
+                color: #000;
+                font-weight: 700;
+            }
 
-.menu-qty-tracker.fullscreen .menu-qty-value {
-    font-size: 32px;
-    font-weight: 700;
-    color: #4facfe;
-    padding: 15px 30px;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    min-width: 200px;
-    text-align: center;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    border: 2px solid transparent;
-}
-
-.menu-qty-tracker.fullscreen .menu-qty-value:hover {
-    color: #00f2fe;
-    border-color: #00f2fe;
-    transform: translateY(-2px);
-}
-
-.menu-qty-tracker.fullscreen .menu-qty-warning {
-    color: #ff6b6b;
-    font-size: 16px;
-    margin-top: 10px;
-    font-weight: 600;
-    text-align: center;
-    padding: 10px 20px;
-    background: rgba(255, 107, 107, 0.1);
-    border-radius: 5px;
-    border: 1px solid #ff6b6b;
-}
-
-.menu-qty-tracker.menu-position .menu-qty-warning {
-    font-size: 11px;
-    margin-top: 3px;
-    padding: 3px 8px;
-}
-
-/* Welcome message */
-.welcome-message {
-    text-align: center;
-    color: #fff;
-    margin-bottom: 40px;
-    font-size: 24px;
-    font-weight: 300;
-}
-
-.welcome-message h2 {
-    margin: 0;
-    color: #4facfe;
-    font-size: 36px;
-    margin-bottom: 10px;
-}
-
-.welcome-message p {
-    margin: 10px 0;
-    color: #ccc;
-    font-size: 16px;
-}
-
-/* Close button */
-.close-fullscreen-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: transparent;
-    border: none;
-    color: #fff;
-    font-size: 24px;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    z-index: 1001;
-}
-
-.close-fullscreen-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: rotate(90deg);
-}
-
-/* Instructions */
-.fullscreen-instructions {
-    color: #aaa;
-    font-size: 14px;
-    text-align: center;
-    margin-top: 20px;
-    font-style: italic;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .menu-qty-tracker.fullscreen {
-        gap: 20px;
-        padding: 10px;
-    }
-    
-    .menu-qty-tracker.fullscreen .menu-qty-group {
-        min-width: 250px;
-        margin: 15px 0;
-    }
-    
-    .menu-qty-tracker.fullscreen .menu-qty-input,
-    .menu-qty-tracker.fullscreen .lot-select {
-        max-width: 200px;
-        padding: 12px;
-        font-size: 16px;
-    }
-    
-    .menu-qty-tracker.fullscreen .menu-qty-label {
-        font-size: 16px;
-    }
-    
-    .menu-qty-tracker.fullscreen .menu-qty-value {
-        font-size: 24px;
-        min-width: 150px;
-        padding: 12px 20px;
-    }
-    
-    .welcome-message {
-        font-size: 18px;
-        margin-bottom: 20px;
-    }
-    
-    .welcome-message h2 {
-        font-size: 24px;
-    }
-}
-
-@media (max-width: 480px) {
-    .menu-qty-tracker.fullscreen {
-        gap: 15px;
-        padding: 5px;
-    }
-    
-    .menu-qty-tracker.fullscreen .menu-qty-group {
-        min-width: 200px;
-        margin: 10px 0;
-    }
-    
-    .menu-qty-tracker.fullscreen .menu-qty-input,
-    .menu-qty-tracker.fullscreen .lot-select {
-        max-width: 180px;
-        padding: 10px;
-        font-size: 14px;
-    }
-    
-    .menu-qty-tracker.fullscreen .menu-qty-label {
-        font-size: 14px;
-    }
-    
-    .menu-qty-tracker.fullscreen .menu-qty-value {
-        font-size: 20px;
-        min-width: 120px;
-        padding: 10px 15px;
-    }
-    
-    .welcome-message {
-        font-size: 14px;
-        margin-bottom: 15px;
-    }
-    
-    .welcome-message h2 {
-        font-size: 20px;
-    }
-}
-@media print {
-    @page {
-        size: A4 landscape;
-        margin: 8mm;
-    }
-
-    body {
-        background: transparent;
-        padding: 0;
-        margin: 0;
-    }
-
-    /* Hide UI elements not needed for printing */
-    #mathjax-loading, .acb-notice, .acb-toggle-btn, .calculator-container, .delete-button, .info-btn, 
-    .menu-bar, .print-btn, .progress-container, footer, .reset-acb-btn {
-        display: none !important;
-    }
-
-    .calculation-steps {
-        border-radius: 0 !important;
-        box-shadow: none !important;
-        display: block !important;
-        width: 100%;
-        max-width: none;
-        margin: 0;
-        padding: 0;
-        background: transparent;
-    }
-
-    .calculation-entry {
-        width: 280mm !important;
-        height: 190mm !important;
-        margin: 0 auto;
-        padding: 0;
-        border: 1px solid #000;
-        font-size: 12pt;
-        position: relative;
-        background: #fff;
-        overflow: hidden;
-        page-break-after: always;
-        /* box-sizing is already set globally */
-    }
-
-    .calculation-entry::before {
-        content: "Assay Based Calculation";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background: #f0f0f0;
-        padding: 5mm;
-        text-align: center;
-        font-size: 16pt;
-        font-weight: 600;
-        border-bottom: 1px solid #000;
-    }
-
-    .calculation-entry::after {
-        content: "Remarks: ______________________________________________________________";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background: #f0f0f0;
-        padding: 5mm;
-        font-size: 14pt;
-        border-top: 1px solid #000;
-    }
-
-    .reference-values {
-        position: absolute;
-        top: 20mm;
-        right: 10mm;
-        font-size: 10pt;
-        color: #000;
-        background: #fff;
-        padding: 2px 5px;
-        z-index: 10;
-    }
-
-    .calculation-entry .lot-label::before {
-        content: "LOT: ";
-        position: absolute;
-        top: 24mm;
-        left: 15mm;
-        font-size: 14pt;
-    }
-
-    .calculation-content {
-        margin-top: 30mm;
-        margin-bottom: 30mm;
-        padding: 0 15mm;
-        font-size: 14pt;
-        overflow: hidden;
-        text-align: left;
-    }
-
-    .page-number {
-        position: absolute;
-        bottom: 5mm;
-        right: 5mm;
-        font-size: 8pt;
-        color: #000;
-        font-weight: 700;
-    }
-
-    #stepsContainer {
-        display: flex;
-        flex-direction: column-reverse;
-    }
-}
-
+            #stepsContainer {
+                display: flex;
+                flex-direction: column-reverse;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1100,79 +1044,82 @@
             JavaScript is required to use this calculator. Please enable JavaScript in your browser settings.
         </div>
     </noscript>
+    
     <div class="menu-bar">
         <div class="menu-container">
             <div class="menu-item active" id="menuFormula" onclick='showCalculator("formula")'>Formula Calculator</div>
             <div class="menu-item" id="menuAcb" onclick='showCalculator("acb")'>(A+C)-B Calculator</div>
-<!-- Fullscreen quantity tracker -->
-<div class="menu-qty-tracker fullscreen" id="qtyTracker">
-    <button type="button" class="close-fullscreen-btn" onclick="minimizeTracker()" title="Minimize to menu" aria-label="Minimize quantity tracker">×</button>
-    
-    <div class="welcome-message">
-        <h2>Quantity Tracker</h2>
-        <p>Enter Standard Quantity to get started</p>
-        <p>Track dispensed and remaining quantities in real-time</p>
-    </div>
-    
-    <div class="menu-qty-group">
-        <label for="stdQty" class="menu-qty-label">Standard Quantity (kg)</label>
-        <input type="number" id="stdQty" class="menu-qty-input" step="0.001" min="0" placeholder="0.000" autofocus>
-        <div class="fullscreen-instructions">Press Enter after entering value</div>
-    </div>
-    <div class="menu-qty-group">
-       <label class="menu-qty-label">Dispensed Quantity</label>
-        <div id="dispensedQty" class="menu-qty-value">0.000</div>
-    </div>
-    <div class="menu-qty-group">
-        <label for="remainingQty" class="menu-qty-label">Remaining Quantity</label>
-        <div id="remainingQty" class="menu-qty-value" onclick="copyRemainingToQ()">0.000</div>
-        <div id="quantityWarning" class="menu-qty-warning">Quantity mismatch detected!</div>
-    </div>
-    <div class="menu-qty-group" id="lotSelectGroup" style="display: none;">
-        <label for="lotSelect" class="menu-qty-label">Select Lot</label>
-        <select id="lotSelect" class="lot-select">
-            <option value="" disabled selected>Select a Lot</option>
-            <option value="1">Lot I</option>
-            <option value="2">Lot II</option>
-            <option value="3">Lot III</option>
-            <option value="4">Lot IV</option>
-        </select>
-    </div>
-    
-    <div class="fullscreen-instructions">
-        Click "Remaining Quantity" to copy to Formula Calculator<br>
-        Standard Quantity will sync with (A+C)-B Calculator
-    </div>
-</div>
+            
+            <!-- Fullscreen quantity tracker -->
+            <div class="menu-qty-tracker fullscreen" id="qtyTracker">
+                <button type="button" class="close-fullscreen-btn" onclick="minimizeTracker()" title="Minimize to menu" aria-label="Minimize quantity tracker">×</button>
+                
+                <div class="welcome-message">
+                    <h2>Quantity Tracker</h2>
+                    <p>Enter Standard Quantity to get started</p>
+                    <p>Track dispensed and remaining quantities in real-time</p>
+                </div>
+                
+                <div class="menu-qty-group">
+                    <label for="stdQty" class="menu-qty-label">Standard Quantity (kg)</label>
+                    <input type="number" id="stdQty" class="menu-qty-input" step="0.001" min="0" placeholder="0.000" autofocus>
+                    <div class="fullscreen-instructions">Press Enter after entering value</div>
+                </div>
+                <div class="menu-qty-group">
+                   <label class="menu-qty-label">Dispensed Quantity</label>
+                    <div id="dispensedQty" class="menu-qty-value">0.000</div>
+                </div>
+                <div class="menu-qty-group">
+                    <label for="remainingQty" class="menu-qty-label">Remaining Quantity</label>
+                    <div id="remainingQty" class="menu-qty-value" onclick="copyRemainingToQ()">0.000</div>
+                    <div id="quantityWarning" class="menu-qty-warning">Quantity mismatch detected!</div>
+                </div>
+                <div class="menu-qty-group" id="lotSelectGroup" style="display: none;">
+                    <label for="lotSelect" class="menu-qty-label">Select Lot</label>
+                    <select id="lotSelect" class="lot-select">
+                        <option value="" disabled selected>Select a Lot</option>
+                        <option value="1">Lot I</option>
+                        <option value="2">Lot II</option>
+                        <option value="3">Lot III</option>
+                        <option value="4">Lot IV</option>
+                    </select>
+                </div>
+                
+                <div class="fullscreen-instructions">
+                    Click "Remaining Quantity" to copy to Formula Calculator<br>
+                    Standard Quantity will sync with (A+C)-B Calculator
+                </div>
+            </div>
 
-<!-- Menu position tracker (initially hidden) -->
-<div class="menu-qty-tracker menu-position hidden" id="menuQtyTracker">
-    <div class="menu-qty-group">
-        <label for="stdQtyMenu" class="menu-qty-label">Std Qty (kg)</label>
-        <input type="number" id="stdQtyMenu" class="menu-qty-input" step="0.001" min="0" placeholder="Enter std qty">
-    </div>
-    <div class="menu-qty-group">
-       <label class="menu-qty-label">Dispensed</label>
-        <div id="dispensedQtyMenu" class="menu-qty-value">0.000</div>
-    </div>
-    <div class="menu-qty-group">
-        <label for="remainingQtyMenu" class="menu-qty-label">Remaining</label>
-        <div id="remainingQtyMenu" class="menu-qty-value">0.000</div>
-        <div id="quantityWarningMenu" class="menu-qty-warning">Qty mismatch!</div>
-    </div>
-    <div class="menu-qty-group" id="lotSelectGroupMenu" style="display: none;">
-        <label for="lotSelectMenu" class="menu-qty-label">Select Lot</label>
-        <select id="lotSelectMenu" class="menu-qty-input">
-            <option value="" disabled selected>Select Lot</option>
-            <option value="1">I</option>
-            <option value="2">II</option>
-            <option value="3">III</option>
-            <option value="4">IV</option>
-        </select>
-    </div>
-</div>
+            <!-- Menu position tracker (initially hidden) -->
+            <div class="menu-qty-tracker menu-position hidden" id="menuQtyTracker">
+                <div class="menu-qty-group">
+                    <label for="stdQtyMenu" class="menu-qty-label">Std Qty (kg)</label>
+                    <input type="number" id="stdQtyMenu" class="menu-qty-input" step="0.001" min="0" placeholder="Enter std qty">
+                </div>
+                <div class="menu-qty-group">
+                   <label class="menu-qty-label">Dispensed</label>
+                    <div id="dispensedQtyMenu" class="menu-qty-value">0.000</div>
+                </div>
+                <div class="menu-qty-group">
+                    <label for="remainingQtyMenu" class="menu-qty-label">Remaining</label>
+                    <div id="remainingQtyMenu" class="menu-qty-value">0.000</div>
+                    <div id="quantityWarningMenu" class="menu-qty-warning">Qty mismatch!</div>
+                </div>
+                <div class="menu-qty-group" id="lotSelectGroupMenu" style="display: none;">
+                    <label for="lotSelectMenu" class="menu-qty-label">Select Lot</label>
+                    <select id="lotSelectMenu" class="menu-qty-input">
+                        <option value="" disabled selected>Select Lot</option>
+                        <option value="1">I</option>
+                        <option value="2">II</option>
+                        <option value="3">III</option>
+                        <option value="4">IV</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
+    
     <div id="formulaCalculator" class="calculator-container active">
         <h2>Formula Calculator</h2>
         <div class="input-group">
@@ -1198,6 +1145,7 @@
             <button type="button" onclick='calculate("F3")' aria-label="Calculate F3">Calculate F3</button>
         </div>
     </div>
+    
     <div id="acbCalculator" class="calculator-container">
         <div class="header-row">
             <h2>(A+C)-B Calculator</h2>
@@ -1289,6 +1237,7 @@
         <div id="acb-notice" class="acb-notice">You are editing standard values.</div>
         <button type="button" class="reset-acb-btn" onclick="resetACBCalculator()" title="Reset (A+C)-B Calculator" aria-label="Reset (A+C)-B Calculator">↻</button>
     </div>
+    
     <div class="calculation-steps hidden" id="calculationSteps" role="region" aria-label="Calculation steps">
         <button type="button" onclick="printWithCheck()" class="print-btn" aria-label="Print calculations">Print Calculations</button>
         <div id="stepsContainer"></div>
@@ -1300,7 +1249,7 @@
             MAX_CALCULATIONS: 15,
             ACB_DEFAULT_A: 000.000,
             ACB_DEFAULT_C: 000.000,
-            ACB_TOTAL_A: 000.000,
+            ACB_TOTAL_A: 1668.000,
             ACB_TOTAL_C: 000.000,
             Q_MAX: 9999999,
             W_MAX: 99.99,
@@ -1329,12 +1278,6 @@
             toggleEditBtn: document.getElementById("toggleEditBtn"),
             acbNotice: document.getElementById("acb-notice"),
             mathJaxLoading: document.getElementById("mathjax-loading"),
-            stdQtyInput: document.getElementById("stdQty"),
-            dispensedQty: document.getElementById("dispensedQty"),
-            remainingQty: document.getElementById("remainingQty"),
-            quantityWarning: document.getElementById("quantityWarning"),
-            lotSelect: document.getElementById("lotSelect"),
-            lotSelectGroup: document.getElementById("lotSelectGroup"),
             acbInputs: {
                 a: ['lot1-a', 'lot2-a', 'lot3-a', 'lot4-a'].map(id => document.getElementById(id)),
                 b: ['lot1-b', 'lot2-b', 'lot3-b', 'lot4-b'].map(id => document.getElementById(id)),
@@ -1358,6 +1301,7 @@
         let calculations = [];
         let mathJaxQueue = [];
         let mathJaxPending = false;
+        let hasValidStdQty = false;
 
         // MathJax readiness
         document.addEventListener('MathJaxReady', () => {
@@ -1545,88 +1489,91 @@
             }
         }
 
-        // Verify calculation before proceeding
-        function verifyCalculation(calculation, Q, W, A) {
-    const verifyModal = document.getElementById("verifyModal");
-    const verifyDetails = document.getElementById("verifyDetails");
-
-    verifyDetails.innerHTML = `
-        <h3 id="verifyTitle" style="text-align:center;">Please verify the following:</h3>
-        <div class="verify-row"><span class="verify-label">Quantity (Q):</span> <span class="verify-value">${Q}</span></div>
-        <div class="verify-row"><span class="verify-label">Water Content (W):</span> <span class="verify-value">${W}%</span></div>
-        <div class="verify-row"><span class="verify-label">Assay Content (A):</span> <span class="verify-value">${A}%</span></div>
-        <div class="verify-row"><span class="verify-label">Formula:</span> <span class="verify-value">F${calculation.formulaType.replace("F", "")}</span></div>
-    `;
-
-    verifyModal.style.display = "flex";
-    document.getElementById("confirmBtn").focus();
-
-    return new Promise(resolve => {
-        window.confirmVerification = function (confirmed) {
-            verifyModal.style.display = "none";
-            if (!confirmed) {
-                // Restore input values if user cancels
-                domCache.QInput.value = Q;
-                domCache.waterInput.value = W;
-                domCache.assayInput.value = A;
-                domCache.progressBar.style.width = "100%";
-                domCache.buttons.style.display = "flex";
-                domCache.assayGroup.style.display = "block";
-                domCache.waterGroup.style.display = "block";
-                domCache.QInput.focus();
-            }
-            resolve(confirmed);
-        };
-    });
-}
-
-        // Update quantity tracker with lot selection visibility
+        // Update quantity tracker
         function updateQuantityTracker() {
-    const stdQty = new Decimal(domCache.stdQtyInput.value || 0);
-    let dispensed = new Decimal(0);
-    let remainingCalc = new Decimal(0);
-    let hasFinalCalculations = false;
+            const stdQty = new Decimal(document.getElementById('stdQty').value || 0);
+            let dispensed = new Decimal(0);
+            let remainingCalc = new Decimal(0);
+            let hasFinalCalculations = false;
 
-    calculations.forEach(calc => {
-        if (calc.formulaType === "F2") {
-            dispensed = dispensed.plus(calc.Q);
-            remainingCalc = remainingCalc.plus(calc.result);
-        } else if (calc.formulaType === "F1" || calc.formulaType === "F3") {
-            dispensed = dispensed.plus(calc.result);
-            remainingCalc = remainingCalc.plus(calc.Q);
-            hasFinalCalculations = true;
+            calculations.forEach(calc => {
+                if (calc.formulaType === "F2") {
+                    dispensed = dispensed.plus(calc.Q);
+                    remainingCalc = remainingCalc.plus(calc.result);
+                } else if (calc.formulaType === "F1" || calc.formulaType === "F3") {
+                    dispensed = dispensed.plus(calc.result);
+                    remainingCalc = remainingCalc.plus(calc.Q);
+                    hasFinalCalculations = true;
+                }
+            });
+
+            // Update fullscreen tracker
+            document.getElementById('dispensedQty').textContent = formatNumber(dispensed);
+            document.getElementById('remainingQty').textContent = formatNumber(stdQty.minus(remainingCalc));
+            
+            // Update menu tracker
+            document.getElementById('dispensedQtyMenu').textContent = formatNumber(dispensed);
+            document.getElementById('remainingQtyMenu').textContent = formatNumber(stdQty.minus(remainingCalc));
+
+            if (stdQty.isZero() || !document.getElementById('stdQty').value.trim()) {
+                document.getElementById('remainingQty').textContent = '-';
+                document.getElementById('remainingQtyMenu').textContent = '-';
+                document.getElementById('quantityWarning').classList.remove('active');
+                document.getElementById('quantityWarningMenu').classList.remove('active');
+                document.getElementById('lotSelectGroup').style.display = 'none';
+                document.getElementById('lotSelectGroupMenu').style.display = 'none';
+            } else {
+                const remaining = stdQty.minus(remainingCalc);
+                document.getElementById('remainingQty').textContent = formatNumber(remaining);
+                document.getElementById('remainingQtyMenu').textContent = formatNumber(remaining);
+
+                const showLotSelect = remaining.eq(0);
+                document.getElementById('lotSelectGroup').style.display = showLotSelect ? 'block' : 'none';
+                document.getElementById('lotSelectGroupMenu').style.display = showLotSelect ? 'block' : 'none';
+
+                // Warning logic
+                if (hasFinalCalculations && !remaining.eq(0) || (remaining.lt(0))) {
+                    document.getElementById('quantityWarning').classList.add('active');
+                    document.getElementById('quantityWarningMenu').classList.add('active');
+                } else {
+                    document.getElementById('quantityWarning').classList.remove('active');
+                    document.getElementById('quantityWarningMenu').classList.remove('active');
+                }
+            }
         }
-    });
 
-    domCache.dispensedQty.textContent = formatNumber(dispensed);
+        // Copy remaining quantity to Q input when clicked
+        function copyRemainingToQ() {
+            const remainingValue = document.getElementById('remainingQty').textContent;
+            if (remainingValue !== '-' && remainingValue !== '0.000') {
+                if (confirm("Copy " + remainingValue + " to Quantity (Q) field?")) {
+                    domCache.QInput.value = remainingValue;
+                    domCache.waterInput.value = '';
+                    domCache.assayInput.value = '';
 
-    if (stdQty.isZero() || !domCache.stdQtyInput.value.trim()) {
-        domCache.remainingQty.textContent = '-';
-        domCache.quantityWarning.classList.remove('active');
-        domCache.lotSelectGroup.style.display = 'none';
-    } else {
-        const remaining = stdQty.minus(remainingCalc);
-        domCache.remainingQty.textContent = formatNumber(remaining);
+                    domCache.progressBar.style.width = "33%";
+                    domCache.waterGroup.style.display = "block";
+                    domCache.assayGroup.style.display = "none";
+                    domCache.buttons.style.display = "none";
 
-        const showLotSelect = remaining.eq(0);
-        domCache.lotSelectGroup.style.display = showLotSelect ? 'block' : 'none';
+                    domCache.waterInput.focus();
 
-        // Updated warning logic
-        if (hasFinalCalculations && !remaining.eq(0) || (remaining.lt(0))) {
-            domCache.quantityWarning.classList.add('active');
-        } else {
-            domCache.quantityWarning.classList.remove('active');
+                    // Show A only after pressing Enter in W field
+                    domCache.waterInput.addEventListener("keydown", function handleWEnter(e) {
+                        if (e.key === "Enter" && domCache.waterInput.value.trim() !== "") {
+                            domCache.assayGroup.style.display = "block";
+                            domCache.waterInput.removeEventListener("keydown", handleWEnter);
+                        }
+                    });
+                }
+            }
         }
-    }
-}
-
-     
 
         // Update dispensed quantity in ACB calculator based on lot selection
         function updateLotDispensedQty() {
-            const lotIndex = parseInt(domCache.lotSelect.value) - 1;
+            const lotIndex = parseInt(document.getElementById('lotSelect').value) - 1;
             if (lotIndex >= 0 && lotIndex < domCache.acbInputs.b.length) {
-                const dispensedQty = domCache.dispensedQty.textContent;
+                const dispensedQty = document.getElementById('dispensedQty').textContent;
                 const input = domCache.acbInputs.b[lotIndex];
                 input.value = dispensedQty;
                 input.classList.add('acb-manual-input');
@@ -1637,37 +1584,10 @@
                 input.focus();
                 
                 // Reset the lot selection
-                domCache.lotSelect.value = '';
-                domCache.lotSelectGroup.style.display = 'none';
+                document.getElementById('lotSelect').value = '';
+                document.getElementById('lotSelectGroup').style.display = 'none';
             }
         }
-
-        // Copy remaining quantity to Q input when clicked
-        
-function copyRemainingToQ() {
-    if (domCache.remainingQty.textContent !== '-' && domCache.remainingQty.textContent !== '0.000') {
-        if (confirm("Copy " + domCache.remainingQty.textContent + " to Quantity (Q) field?")) {
-            domCache.QInput.value = domCache.remainingQty.textContent;
-            domCache.waterInput.value = '';
-            domCache.assayInput.value = '';
-
-            domCache.progressBar.style.width = "33%";
-            domCache.waterGroup.style.display = "block";
-            domCache.assayGroup.style.display = "none";
-            domCache.buttons.style.display = "none";
-
-            domCache.waterInput.focus();
-
-            // Show A only after pressing Enter in W field
-            domCache.waterInput.addEventListener("keydown", function handleWEnter(e) {
-                if (e.key === "Enter" && domCache.waterInput.value.trim() !== "") {
-                    domCache.assayGroup.style.display = "block";
-                    domCache.waterInput.removeEventListener("keydown", handleWEnter);
-                }
-            });
-        }
-    }
-}
 
         // Reset ACB calculator
         function resetACBCalculator() {
@@ -1713,7 +1633,7 @@ function copyRemainingToQ() {
         }
 
         // Calculate
-        function calculate(formulaType) {
+        async function calculate(formulaType) {
             if (calculationCount >= CONSTANTS.MAX_CALCULATIONS) {
                 alert(`Maximum of ${CONSTANTS.MAX_CALCULATIONS} calculations reached. Press F5 to reset or delete a calculation.`);
                 return;
@@ -1751,11 +1671,6 @@ function copyRemainingToQ() {
                 if (!calculationResult) throw new Error("Failed to create calculation");
             } catch {
                 alert("Calculation failed. Please check inputs.");
-                return;
-            }
-
-            // Add verification step
-            if (!verifyCalculation(calculationResult, Q, W, A)) {
                 return;
             }
 
@@ -1836,14 +1751,14 @@ function copyRemainingToQ() {
             }
 
             if (input.id === "water" || input.id === "assay") {
-    if (input.id === "assay" && numericValue < 10 && numericValue > 0) {
-        showError(input, "Assay Content (A) should be greater than 80.");
-    } else if (input.id === "water" && numericValue > 80 && numericValue <= 100.00) {
-        showError(input, "Water Content (W) should be less than 10.");
-    } else {
-        clearError(input);
-    }
-}
+                if (input.id === "assay" && numericValue < 10 && numericValue > 0) {
+                    showError(input, "Assay Content (A) should be greater than 80.");
+                } else if (input.id === "water" && numericValue > 80 && numericValue <= 100.00) {
+                    showError(input, "Water Content (W) should be less than 10.");
+                } else {
+                    clearError(input);
+                }
+            }
 
             if (event.key === "Enter" && value !== "") {
                 event.preventDefault();
@@ -1856,17 +1771,19 @@ function copyRemainingToQ() {
                 }
             }
 
-          if (event.type === "change" && input.id === "water") {
-    if (numericValue > 0 && numericValue <= 100.00) {
-        domCache.assayInput.focus();
-    }
-}
-if (input.id === "water" || input.id === "assay") {
-    if (!/^\d*\.?\d{0,2}$/.test(value)) {
-        input.value = value.slice(0, -1); // Strip extra decimals
-        return;
-    }
-}
+            if (event.type === "change" && input.id === "water") {
+                if (numericValue > 0 && numericValue <= 100.00) {
+                    domCache.assayInput.focus();
+                }
+            }
+            
+            if (input.id === "water" || input.id === "assay") {
+                if (!/^\d*\.?\d{0,2}$/.test(value)) {
+                    input.value = value.slice(0, -1);
+                    return;
+                }
+            }
+            
             if (hasCalculated && (input.id === "water" || input.id === "assay")) {
                 if (input.id === "assay" && numericValue < 10 && numericValue > 0) {
                     showError(input, "Assay Content (A) should be greater than 80.");
@@ -1909,39 +1826,30 @@ if (input.id === "water" || input.id === "assay") {
             domCache.assayGroup.style.display = domCache.waterInput.value.trim() ? "block" : "none";
             domCache.buttons.style.display = filledFields === 3 ? "flex" : "none";
         }
-// Show calculator
-function showCalculator(calculator) {
-    domCache.formulaCalculator.classList.toggle('active', calculator === 'formula');
-    domCache.acbCalculator.classList.toggle('active', calculator === 'acb');
-    domCache.menuFormula.classList.toggle('active', calculator === 'formula');
-    domCache.menuAcb.classList.toggle('active', calculator === 'acb');
-    domCache.calculationSteps.classList.toggle('hidden', calculator !== 'formula' || calculationCount === 0);
-    
-    // Show/hide menu tracker based on active calculator
-    const menuTracker = document.getElementById('menuQtyTracker');
-    if (calculator === 'acb') {
-        menuTracker.classList.add('hidden');
-    } else if (hasValidStdQty) {
-        menuTracker.classList.remove('hidden');
-    }
 
-    // Prevent null reference errors
-    if (calculator === 'formula') {
-        domCache.QInput?.focus();
-    } else if (domCache.acbInputs?.b?.[0]) {
-        domCache.acbInputs.b[0].focus();
-    }
-}
+        // Show calculator
+        function showCalculator(calculator) {
+            domCache.formulaCalculator.classList.toggle('active', calculator === 'formula');
+            domCache.acbCalculator.classList.toggle('active', calculator === 'acb');
+            domCache.menuFormula.classList.toggle('active', calculator === 'formula');
+            domCache.menuAcb.classList.toggle('active', calculator === 'acb');
+            domCache.calculationSteps.classList.toggle('hidden', calculator !== 'formula' || calculationCount === 0);
+            
+            // Show/hide menu tracker based on active calculator
+            const menuTracker = document.getElementById('menuQtyTracker');
+            if (calculator === 'acb') {
+                menuTracker.classList.add('hidden');
+            } else if (hasValidStdQty) {
+                menuTracker.classList.remove('hidden');
+            }
 
-    // Prevent null reference errors
-    if (calculator === 'formula') {
-        domCache.QInput?.focus();
-    } else if (domCache.acbInputs?.b?.[0]) {
-        domCache.acbInputs.b[0].focus();
-    }
-}
-      
-
+            // Focus
+            if (calculator === 'formula') {
+                domCache.QInput?.focus();
+            } else if (domCache.acbInputs?.b?.[0]) {
+                domCache.acbInputs.b[0].focus();
+            }
+        }
 
         // Clear fields
         function clearAllFields() {
@@ -2085,46 +1993,88 @@ function showCalculator(calculator) {
             window.print();
         }
 
+        // Sync std qty to ACB A-values
+        function syncStdQtyToACB(value) {
+            const stdVal = new Decimal(value || 0).toFixed(3);
+
+            domCache.acbInputs.a.forEach(input => {
+                input.value = stdVal;
+                input.classList.remove('acb-manual-input');
+                input.classList.add('acb-prefilled');
+            });
+
+            // Update total A
+            const totalA = new Decimal(stdVal).times(domCache.acbInputs.a.length);
+            domCache.acbInputs.totals.a.textContent = totalA.toFixed(3);
+        }
+
+        // Validate standard quantity and minimize tracker
+        function validateStdQty() {
+            const stdQtyInput = document.getElementById('stdQty');
+            const stdQtyMenuInput = document.getElementById('stdQtyMenu');
+            const stdQty = new Decimal(stdQtyInput.value || 0);
+            
+            if (stdQty.isNaN() || stdQty.lte(0)) {
+                alert("Please enter a valid Standard Quantity greater than 0.");
+                stdQtyInput.focus();
+                return false;
+            }
+            
+            // Valid quantity entered
+            hasValidStdQty = true;
+            
+            // Copy value to menu input
+            stdQtyMenuInput.value = stdQty.toString();
+            
+            // Sync to ACB calculator
+            syncStdQtyToACB(stdQty);
+            
+            // Update quantity tracker
+            updateQuantityTracker();
+            
+            // Minimize to menu
+            minimizeTracker();
+            
+            return true;
+        }
+
+        // Minimize quantity tracker to menu position
+        function minimizeTracker() {
+            if (!hasValidStdQty) {
+                alert("Please enter a valid Standard Quantity first.");
+                document.getElementById('stdQty').focus();
+                return;
+            }
+            
+            const fullscreenTracker = document.getElementById('qtyTracker');
+            const menuTracker = document.getElementById('menuQtyTracker');
+            
+            fullscreenTracker.classList.add('hidden');
+            menuTracker.classList.remove('hidden');
+            
+            // Focus on formula calculator
+            showCalculator('formula');
+        }
+
+        // Maximize tracker back to fullscreen
+        function maximizeTracker() {
+            const fullscreenTracker = document.getElementById('qtyTracker');
+            const menuTracker = document.getElementById('menuQtyTracker');
+            
+            menuTracker.classList.add('hidden');
+            fullscreenTracker.classList.remove('hidden');
+            document.getElementById('stdQty').focus();
+        }
+
         // Initialize
-        // Initialize
-document.addEventListener("DOMContentLoaded", () => {
-    // ... existing code ...
-    
-    // Start with quantity tracker in fullscreen mode
-    document.getElementById('stdQty').focus();
-   
         document.addEventListener("DOMContentLoaded", () => {
             domCache.assayGroup.style.display = "none";
             domCache.waterGroup.style.display = "none";
             domCache.buttons.style.display = "none";
             domCache.calculationSteps.classList.add("hidden");
-            domCache.QInput.focus();
-            // Standard quantity input with Enter key support
-document.getElementById('stdQty').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        validateStdQty();
-    }
-});
-
-// Sync menu input changes back to fullscreen
-document.getElementById('stdQtyMenu').addEventListener('change', () => {
-    document.getElementById('stdQty').value = document.getElementById('stdQtyMenu').value;
-    const stdQty = new Decimal(document.getElementById('stdQtyMenu').value || 0);
-    if (!stdQty.isNaN() && stdQty.gt(0)) {
-        syncStdQtyToACB(stdQty);
-        updateBothTrackers();
-    }
-});
-
-// Add F9 shortcut to maximize tracker
-document.addEventListener("keydown", e => {
-    if (e.key === 'F9') {
-        e.preventDefault();
-        maximizeTracker();
-    }
-});
-
- 
+            
+            // Start with quantity tracker in fullscreen mode
+            document.getElementById('stdQty').focus();
     
             // Input listeners
             [domCache.QInput, domCache.waterInput, domCache.assayInput].forEach(input => {
@@ -2137,6 +2087,32 @@ document.addEventListener("keydown", e => {
                     if (e.key === "Enter") handleInput(e);
                 });
                 input.addEventListener("contextmenu", e => e.preventDefault());
+            });
+
+            // Standard quantity input with Enter key support
+            document.getElementById('stdQty').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    validateStdQty();
+                }
+            });
+
+            // Sync menu input changes
+            document.getElementById('stdQtyMenu').addEventListener('change', () => {
+                document.getElementById('stdQty').value = document.getElementById('stdQtyMenu').value;
+                const stdQty = new Decimal(document.getElementById('stdQtyMenu').value || 0);
+                if (!stdQty.isNaN() && stdQty.gt(0)) {
+                    syncStdQtyToACB(stdQty);
+                    updateQuantityTracker();
+                }
+            });
+
+            // Standard quantity input
+            document.getElementById('stdQty').addEventListener('input', () => {
+                validateInput(document.getElementById('stdQty'));
+            });
+
+            document.getElementById('stdQtyMenu').addEventListener('input', () => {
+                validateInput(document.getElementById('stdQtyMenu'));
             });
 
             // ACB input delegation
@@ -2174,11 +2150,6 @@ document.addEventListener("keydown", e => {
                 }
             });
 
-            // Modal listeners
-            window.addEventListener('click', e => {
-                if (e.target === document.getElementById('infoModal')) closeModal();
-            });
-
             // Keyboard shortcuts
             document.addEventListener("keydown", e => {
                 switch (e.key) {
@@ -2186,21 +2157,20 @@ document.addEventListener("keydown", e => {
                     case "F2": e.preventDefault(); calculate("F2"); break;
                     case "F3": e.preventDefault(); calculate("F3"); break;
                     case 'F8': e.preventDefault(); if (calculationCount > 0) printWithCheck(); break;
-                    
+                    case 'F9': e.preventDefault(); maximizeTracker(); break;
                 }
             });
 
-            // Standard quantity input
-            domCache.stdQtyInput.addEventListener('input', () => {
-                validateInput(domCache.stdQtyInput);
-                updateQuantityTracker();
-            });
-
             // Remaining quantity click handler
-            domCache.remainingQty.addEventListener('click', copyRemainingToQ);
+            document.getElementById('remainingQty').addEventListener('click', copyRemainingToQ);
+            document.getElementById('remainingQtyMenu').addEventListener('click', copyRemainingToQ);
 
             // Lot selection handler
-            domCache.lotSelect.addEventListener('change', updateLotDispensedQty);
+            document.getElementById('lotSelect').addEventListener('change', updateLotDispensedQty);
+            document.getElementById('lotSelectMenu').addEventListener('change', function() {
+                document.getElementById('lotSelect').value = this.value;
+                updateLotDispensedQty();
+            });
 
             // Initialize quantity tracker
             updateQuantityTracker();
@@ -2224,403 +2194,6 @@ document.addEventListener("keydown", e => {
 
         // Handle window resize
         window.addEventListener('resize', updatePageNumbers);
-
-// Initialize default std qty
-window.addEventListener("DOMContentLoaded", () => {
-    domCache.stdQtyInput.value = CONSTANTS.ACB_DEFAULT_A.toFixed(3);
-    syncStdQtyToACB(CONSTANTS.ACB_DEFAULT_A);
-});
-
-// Sync std qty to ACB A-values
-function syncStdQtyToACB(value) {
-    const stdVal = new Decimal(value || 0).toFixed(3);
-
-    domCache.acbInputs.a.forEach(input => {
-        input.value = stdVal;
-        input.classList.remove('acb-manual-input');
-        input.classList.add('acb-prefilled');
-    });
-
-    // Update total A
-    const totalA = new Decimal(stdVal).times(domCache.acbInputs.a.length);
-    domCache.acbInputs.totals.a.textContent = totalA.toFixed(3);
-}
-
-// Update when stdQty input changes
-domCache.stdQtyInput.addEventListener("change", () => {
-    const newVal = parseFloat(domCache.stdQtyInput.value || 0);
-    if (!isNaN(newVal) && newVal > 0) {
-        syncStdQtyToACB(newVal);
-    }
-});
-    </script> 
-
-<!-- Improved Verification Modal -->
-<div id="verifyModal" class="info-modal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="verifyTitle">
-    <div class="modal-content">
-        <span class="close" onclick="closeVerifyModal()" aria-label="Close verification modal">&times;</span>
-        <div id="verifyDetails">
-            <!-- Populated dynamically -->
-        </div>
-        <div style="margin-top: 15px; display: flex; justify-content: space-between;">
-            <button onclick="confirmVerification(false)" class="cancel-btn">Cancel</button>
-            <button onclick="confirmVerification(true)" id="confirmBtn" class="confirm-btn">Confirm</button>
-        </div>
-    </div>
-</div>
-
-<style>
-/* Enhancements for modal */
-.info-modal {
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 10000;
-}
-.modal-content {
-    background: #fff;
-    max-height: 90vh;
-    overflow-y: auto;
-    width: 90%;
-    max-width: 500px;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
-    position: relative;
-}
-.verify-label {
-    font-weight: bold;
-    color: #000;
-    display: inline-block;
-    width: 140px;
-    text-align: right;
-    margin-right: 10px;
-}
-.verify-value {
-    font-weight: bold;
-    background-color: #d4edda;
-    color: #155724;
-    padding: 3px 6px;
-    border-radius: 5px;
-}
-.verify-row {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-bottom: 10px;
-}
-.cancel-btn {
-    background-color: #ff4444;
-    color: white;
-    border: none;
-    padding:8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-.cancel-btn:hover {
-    background-color: #cc0000;
-}
-.confirm-btn {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-.confirm-btn:hover {
-    background-color: #218838;
-}
-</style>
-
-<script>
-// Overwrite verifyCalculation with improved modal
-function verifyCalculation(calculation, Q, W, A) {
-    const verifyModal = document.getElementById("verifyModal");
-    const verifyDetails = document.getElementById("verifyDetails");
-
-    verifyDetails.innerHTML = `
-        <h3 id="verifyTitle" style="text-align:center;">Please verify the following:</h3>
-        <div class="verify-row"><span class="verify-label">Quantity (Q):</span> <span class="verify-value">${Q}</span></div>
-        <div class="verify-row"><span class="verify-label">Water Content (W):</span> <span class="verify-value">${W}%</span></div>
-        <div class="verify-row"><span class="verify-label">Assay Content (A):</span> <span class="verify-value">${A}%</span></div>
-        <div class="verify-row"><span class="verify-label">Formula:</span> <span class="verify-value">F${calculation.formulaType.replace("F", "")}</span></div>
-    `;
-
-    verifyModal.style.display = "flex";
-    document.getElementById("confirmBtn").focus();
-
-    return new Promise(resolve => {
-        window.confirmVerification = function (confirmed) {
-            verifyModal.style.display = "none";
-            if (!confirmed) {
-                // Restore input values if user cancels
-                domCache.QInput.value = Q;
-                domCache.waterInput.value = W;
-                domCache.assayInput.value = A;
-                domCache.progressBar.style.width = "100%";
-                domCache.buttons.style.display = "flex";
-                domCache.assayGroup.style.display = "block";
-                domCache.waterGroup.style.display = "block";
-                domCache.QInput.focus();
-            }
-            resolve(confirmed);
-        };
-    });
-}
-
-function closeVerifyModal() {
-    document.getElementById("verifyModal").style.display = "none";
-    if (typeof window.confirmVerification === 'function') {
-        window.confirmVerification(false);
-    }
-}
-
-// Modify the calculate function to handle the promise
-async function calculate(formulaType) {
-    if (calculationCount >= CONSTANTS.MAX_CALCULATIONS) {
-        alert(`Maximum of ${CONSTANTS.MAX_CALCULATIONS} calculations reached. Press F5 to reset or delete a calculation.`);
-        return;
-    }
-
-    let Q, W, A;
-    try {
-        Q = new Decimal(domCache.QInput.value || 0);
-        W = new Decimal(domCache.waterInput.value || 0);
-        A = new Decimal(domCache.assayInput.value || 0);
-    } catch {
-        alert("Invalid input values.");
-        return;
-    }
-
-    if (Q.isNaN() || W.isNaN() || A.isNaN() || Q.lte(0) || W.lte(0) || A.lte(0)) {
-        alert("Please enter valid values for Q, W, and A (all must be greater than 0).");
-        return;
-    }
-
-    if (Q.gt(CONSTANTS.Q_MAX)) {
-        alert(`Quantity (Q) must be less than or equal to ${CONSTANTS.Q_MAX}.`);
-        return;
-    }
-
-    if (A.gt(CONSTANTS.A_MAX) || W.gt(CONSTANTS.W_MAX)) {
-        alert("Invalid values: Ensure A ≤ 100 and W ≤ 99.99.");
-        return;
-    }
-
-    hasCalculated = true;
-    let calculationResult;
-    try {
-        calculationResult = createCalculation(formulaType, Q, W, A);
-        if (!calculationResult) throw new Error("Failed to create calculation");
-    } catch {
-        alert("Calculation failed. Please check inputs.");
-        return;
-    }
-
-    // Add verification step and wait for user confirmation
-    const isConfirmed = await verifyCalculation(calculationResult, Q, W, A);
-    if (!isConfirmed) {
-        return; // Don't proceed if user cancels
-    }
-
-    calculations.push(calculationResult);
-    const newEntry = document.createElement("div");
-    newEntry.className = "calculation-entry";
-    newEntry.setAttribute("tabindex", "0");
-    newEntry.setAttribute("role", "region");
-    newEntry.setAttribute("aria-label", `Calculation ${formulaType}`);
-    newEntry.innerHTML = `
-        <button type="button" class="delete-button" onclick="deleteCalculation(this)" title="Delete" aria-label="Delete calculation">❌</button>
-        <div class="lot-label"></div>
-        <div class="reference-values">W="${formatNumber(W, true)}" A="${formatNumber(A, true)}"</div>
-        <div class="calculation-content">${calculationResult.plainText}</div>
-        <div class="page-number">${calculationCount + 1}/${calculationCount + 1}</div>
-        <span class="loading-indicator">Rendering...</span>
-    `;
-
-    domCache.stepsContainer.insertBefore(newEntry, domCache.stepsContainer.firstChild);
-    calculationCount++;
-    domCache.calculationSteps.classList.remove("hidden");
-
-    updatePageNumbers();
-    updateQuantityTracker();
-
-    if (isMathJaxReady) {
-        setTimeout(() => {
-            newEntry.innerHTML = `
-                <button type="button" class="delete-button" onclick="deleteCalculation(this)" title="Delete" aria-label="Delete calculation">❌</button>
-                <div class="lot-label"></div>
-                <div class="reference-values">W="${formatNumber(W, true)}" A="${formatNumber(A, true)}"</div>
-                <div class="calculation-content">${calculationResult.mathJax}</div>
-                <div class="page-number">${calculationCount}/${calculationCount}</div>
-            `;
-            queueMathJax(newEntry);
-        }, 50);
-    } else {
-        newEntry.querySelector('.loading-indicator').style.display = 'block';
-        setTimeout(() => {
-            if (!isMathJaxReady) retryMathJaxLoad();
-        }, CONSTANTS.MATHJAX_TIMEOUT);
-    }
-
-    // Clear inputs after successful calculation
-    setTimeout(() => {
-        domCache.QInput.value = "";
-        domCache.waterInput.value = "";
-        domCache.assayInput.value = "";
-        domCache.progressBar.style.width = "0%";
-        domCache.buttons.style.display = "none";
-        domCache.assayGroup.style.display = "none";
-        domCache.waterGroup.style.display = "none";
-        updateQuantityTracker();
-        domCache.QInput.focus();
-    }, 100);
-
-    newEntry.focus();
-}
-// State variable
-let hasValidStdQty = false;
-
-// NEW: Validate standard quantity and minimize tracker
-function validateStdQty() {
-    const stdQtyInput = document.getElementById('stdQty');
-    const stdQtyMenuInput = document.getElementById('stdQtyMenu');
-    const stdQty = new Decimal(stdQtyInput.value || 0);
-    
-    if (stdQty.isNaN() || stdQty.lte(0)) {
-        alert("Please enter a valid Standard Quantity greater than 0.");
-        stdQtyInput.focus();
-        return false;
-    }
-    
-    // Valid quantity entered
-    hasValidStdQty = true;
-    
-    // Copy value to menu input
-    stdQtyMenuInput.value = stdQty.toString();
-    
-    // Sync to ACB calculator
-    syncStdQtyToACB(stdQty);
-    
-    // Update both trackers
-    updateBothTrackers();
-    
-    // Minimize to menu
-    minimizeTracker();
-    
-    return true;
-}
-
-// NEW: Minimize quantity tracker to menu position
-function minimizeTracker() {
-    if (!hasValidStdQty) {
-        alert("Please enter a valid Standard Quantity first.");
-        document.getElementById('stdQty').focus();
-        return;
-    }
-    
-    const fullscreenTracker = document.getElementById('qtyTracker');
-    const menuTracker = document.getElementById('menuQtyTracker');
-    
-    fullscreenTracker.classList.add('hidden');
-    menuTracker.classList.remove('hidden');
-    
-    // Focus on formula calculator
-    showCalculator('formula');
-}
-
-// NEW: Maximize tracker back to fullscreen
-function maximizeTracker() {
-    const fullscreenTracker = document.getElementById('qtyTracker');
-    const menuTracker = document.getElementById('menuQtyTracker');
-    
-    menuTracker.classList.add('hidden');
-    fullscreenTracker.classList.remove('hidden');
-    document.getElementById('stdQty').focus();
-}
-
-// NEW: Update both trackers
-function updateBothTrackers() {
-    const stdQty = new Decimal(document.getElementById('stdQty').value || 0);
-    let dispensed = new Decimal(0);
-    let remainingCalc = new Decimal(0);
-    let hasFinalCalculations = false;
-
-    calculations.forEach(calc => {
-        if (calc.formulaType === "F2") {
-            dispensed = dispensed.plus(calc.Q);
-            remainingCalc = remainingCalc.plus(calc.result);
-        } else if (calc.formulaType === "F1" || calc.formulaType === "F3") {
-            dispensed = dispensed.plus(calc.result);
-            remainingCalc = remainingCalc.plus(calc.Q);
-            hasFinalCalculations = true;
-        }
-    });
-
-    // Update fullscreen tracker
-    document.getElementById('dispensedQty').textContent = formatNumber(dispensed);
-    document.getElementById('remainingQty').textContent = formatNumber(stdQty.minus(remainingCalc));
-    
-    // Update menu tracker
-    document.getElementById('dispensedQtyMenu').textContent = formatNumber(dispensed);
-    document.getElementById('remainingQtyMenu').textContent = formatNumber(stdQty.minus(remainingCalc));
-
-    if (stdQty.isZero() || !document.getElementById('stdQty').value.trim()) {
-        document.getElementById('remainingQty').textContent = '-';
-        document.getElementById('remainingQtyMenu').textContent = '-';
-        document.getElementById('quantityWarning').classList.remove('active');
-        document.getElementById('quantityWarningMenu').classList.remove('active');
-        document.getElementById('lotSelectGroup').style.display = 'none';
-        document.getElementById('lotSelectGroupMenu').style.display = 'none';
-    } else {
-        const remaining = stdQty.minus(remainingCalc);
-        document.getElementById('remainingQty').textContent = formatNumber(remaining);
-        document.getElementById('remainingQtyMenu').textContent = formatNumber(remaining);
-
-        const showLotSelect = remaining.eq(0);
-        document.getElementById('lotSelectGroup').style.display = showLotSelect ? 'block' : 'none';
-        document.getElementById('lotSelectGroupMenu').style.display = showLotSelect ? 'block' : 'none';
-
-        // Updated warning logic
-        if (hasFinalCalculations && !remaining.eq(0) || (remaining.lt(0))) {
-            document.getElementById('quantityWarning').classList.add('active');
-            document.getElementById('quantityWarningMenu').classList.add('active');
-        } else {
-            document.getElementById('quantityWarning').classList.remove('active');
-            document.getElementById('quantityWarningMenu').classList.remove('active');
-        }
-    }
-}
-
-// NEW: Sync input values between trackers
-function syncTrackerInputs() {
-    const fullscreenInput = document.getElementById('stdQty');
-    const menuInput = document.getElementById('stdQtyMenu');
-    
-    menuInput.value = fullscreenInput.value;
-    fullscreenInput.value = menuInput.value;
-    
-    const stdQty = new Decimal(fullscreenInput.value || 0);
-    if (!stdQty.isNaN() && stdQty.gt(0)) {
-        syncStdQtyToACB(stdQty);
-    }
-}
-
-// Update the existing updateQuantityTracker function to use updateBothTrackers
-// Replace the existing updateQuantityTracker function with:
-function updateQuantityTracker() {
-    updateBothTrackers();
-}
-</script>
+    </script>
 </body>
 </html>
