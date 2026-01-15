@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -162,6 +163,7 @@ body {
 #remainingQty {
     cursor: pointer;
     transition: all 0.2s ease;
+    user-select: none;
 }
 #remainingQty:hover {
     color: #4facfe;
@@ -1206,6 +1208,7 @@ function updateACB() {
 // ============================================================================
 //               QUANTITY TRACKER & LOT ASSIGNMENT LOGIC
 // ============================================================================
+// IMPROVED FROM index-1.html
 
 function updateQuantityTracker() {
     const stdQty = new Decimal(els.stdQty.value || 0);
@@ -1234,10 +1237,12 @@ function updateQuantityTracker() {
         const remaining = stdQty.minus(remainingCalc);
         els.remainingQty.textContent = remaining.toFixed(3);
 
+        // Show lot selector only when remaining quantity is exactly 0
         const showLotSelect = remaining.eq(0);
         els.lotSelectGroup.style.display = showLotSelect ? 'block' : 'none';
 
-        // Updated warning logic
+        // Updated warning logic from index-1.html
+        // Only show warning if there are final calculations (F1/F3) AND remaining is not zero
         if (hasFinalCalculations && !remaining.eq(0) || (remaining.lt(0))) {
             els.quantityWarning.classList.add('active');
         } else {
@@ -1270,6 +1275,7 @@ function updateLotDispensedQty() {
     }
 }
 
+// IMPROVED FROM index-1.html
 function copyRemainingToQ() {
     if (els.remainingQty.textContent !== '-' && els.remainingQty.textContent !== '0.000') {
         if (confirm("Copy " + els.remainingQty.textContent + " to Quantity (Q) field?")) {
@@ -1285,12 +1291,13 @@ function copyRemainingToQ() {
             els.waterInput.focus();
 
             // Show A only after pressing Enter in W field
-            els.waterInput.addEventListener("keydown", function handleWEnter(e) {
+            const handleWEnter = function(e) {
                 if (e.key === "Enter" && els.waterInput.value.trim() !== "") {
                     els.assayGroup.style.display = "block";
                     els.waterInput.removeEventListener("keydown", handleWEnter);
                 }
-            });
+            };
+            els.waterInput.addEventListener("keydown", handleWEnter);
         }
     }
 }
@@ -1853,3 +1860,4 @@ window.addEventListener('resize', updatePageNumbers);
 </script>
 </body>
 </html>
+
