@@ -2185,17 +2185,18 @@
         window.addEventListener('resize', updatePageNumbers);
     </script>
 
-    <!-- Verification Modal -->
-    <div id="verifyModal" class="info-modal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="verifyTitle">
-        <div class="modal-content">
-            <span class="close" onclick="closeVerifyModal()" aria-label="Close verification modal">&times;</span>
-            <div id="verifyDetails"></div>
-            <div style="margin-top: 15px; display: flex; justify-content: space-between;">
-                <button onclick="confirmVerification(false)" class="cancel-btn" style="background-color: #ff4444; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; transition: background-color 0.3s;">Cancel</button>
-                <button onclick="confirmVerification(true)" id="confirmBtn" class="confirm-btn" style="background-color: #28a745; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; transition: background-color 0.3s;">Confirm</button>
-            </div>
-        </div>
-    </div>
+     <div class="reference-values">W="${formatNumber(W, true)}" A="${formatNumber(A, true)}"</div>
+                <div class="calculation-content">${calculationResult.mathJax}</div>
+                <div class="page-number">${calculationCount}/${calculationCount}</div>
+            `;
+            queueMathJax(newEntry);
+        }, 50);
+    } else {
+        newEntry.querySelector('.loading-indicator').style.display = 'block';
+        setTimeout(() => {
+            if (!isMathJaxReady) retryMathJaxLoad();
+        }, CONSTANTS.MATHJAX_TIMEOUT);
+    }
 
 </body>
 </html>
